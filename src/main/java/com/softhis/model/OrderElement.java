@@ -10,7 +10,6 @@ public class OrderElement {
     private int id;
 
     @ManyToOne
-    @Column(name = "ORDER", nullable = false)
     private Order order;
 
     @Column(name = "NAME", nullable = false)

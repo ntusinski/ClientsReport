@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ClientDao {
     List<Client> getClients();
+
+    void saveClients(List<Client> clients);
 }

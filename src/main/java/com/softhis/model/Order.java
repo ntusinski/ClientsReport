@@ -14,11 +14,9 @@ public class Order {
     private int id;
 
     @ManyToOne
-    @Column(name = "CLIENT", nullable = false)
     private Client client;
 
     @Column(name = "ORDER_DATE", nullable = false)
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     private Date orderDate;
 
     @OneToMany

@@ -13,4 +13,11 @@ public class ClientDaoImpl extends AbstractDao implements ClientDao {
         Criteria criteria = getSession().createCriteria(Client.class);
         return criteria.list();
     }
+
+    @Override
+    public void saveClients(List<Client> clients) {
+        for (Client client : clients) {
+            getSession().persist(client);
+        }
+    }
 }

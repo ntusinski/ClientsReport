@@ -5,14 +5,12 @@ import com.softhis.dto.ReportLineDto;
 import com.softhis.dto.ReportOrderDto;
 import com.softhis.model.Client;
 import com.softhis.model.Order;
+import com.softhis.model.OrderElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service("clientService")
 @Transactional
@@ -56,5 +54,25 @@ public class ClientServiceImpl implements ClientService {
         }
 
         return result;
+    }
+
+    @Override
+    public void generateRandomClientsWithOrders() {
+        Client client = new Client();
+        Order order = new Order();
+        OrderElement element = new OrderElement();
+
+        element.setName("aaaa");
+        element.setAmount(1);
+        element.setOrder(order);
+
+        order.setOrderDate(new Date());
+        order.setOrderElements(Arrays.asList(new OrderElement[]{element}));
+
+        client.setFirstName("Jan");
+        client.setLastName("Kowalski");
+        client.setOrders(Arrays.asList(new Order[]{order}));
+
+        clientDao.saveClients(Arrays.asList(new Client[]{client}));
     }
 }
