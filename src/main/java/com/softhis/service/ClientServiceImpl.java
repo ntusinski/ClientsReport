@@ -18,6 +18,8 @@ public class ClientServiceImpl implements ClientService {
     @Autowired
     private ClientDao clientDao;
 
+    private Random random = new Random();
+
     public List<ReportLineDto> getClientReport(int numberOfExpensiveListed) throws IllegalArgumentException {
         List<Client> clients = clientDao.getClients();
         List<ReportLineDto> result = new ArrayList<>();
@@ -57,22 +59,37 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void generateRandomClientsWithOrders() {
-        Client client = new Client();
-        Order order = new Order();
-        OrderElement element = new OrderElement();
+    public void generateRandomClientsWithOrders(int numberOfClients) {
+        List<Client> clients = new ArrayList<>();
 
-        element.setName("aaaa");
-        element.setAmount(1);
-        element.setOrder(order);
+        for (int c = 0; c < numberOfClients; c++) {
+            Client client = new Client();
+            client.setFirstName("Jan");
+            client.setLastName("Kowalski");
+            client.setOrders(new ArrayList<Order>());
 
-        order.setOrderDate(new Date());
-        order.setOrderElements(Arrays.asList(new OrderElement[]{element}));
+            int numberOfOrders = Math.abs(random.nextInt()) % 5;
+            for (int i = 0; i <= numberOfOrders; i++) {
+                Order order = new Order();
+                order.setOrderDate(new Date());
+                order.setOrderElements(new ArrayList<OrderElement>());
 
-        client.setFirstName("Jan");
-        client.setLastName("Kowalski");
-        client.setOrders(Arrays.asList(new Order[]{order}));
+                int numberOfOrderElements = Math.abs(random.nextInt()) % 10;
+                for (int j = 0; j <= numberOfOrderElements; j++) {
+                    OrderElement element = new OrderElement();
+                    element.setName("Some order");
+                    element.setAmount(Math.abs(random.nextInt()) % 10000);
+                    element.setOrder(order);
 
-        clientDao.saveClients(Arrays.asList(new Client[]{client}));
+                    order.getOrderElements().add(element);
+                }
+
+                client.getOrders().add(order);
+            }
+
+            clients.add(client);
+        }
+
+        clientDao.saveClients(clients);
     }
 }

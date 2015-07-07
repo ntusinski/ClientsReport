@@ -7,5 +7,5 @@ import java.util.List;
 public interface ClientService {
     List<ReportLineDto> getClientReport(int numberOfExpensiveListed) throws IllegalArgumentException;
 
-    void generateRandomClientsWithOrders();
+    void generateRandomClientsWithOrders(int numberOfClients);
 }
