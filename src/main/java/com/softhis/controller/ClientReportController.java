@@ -13,10 +13,10 @@ public class ClientReportController {
     @Autowired
     private ClientService clientService;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String generateReport(ModelMap model) {
+    @RequestMapping(method = RequestMethod.GET)
+    public String generateReport(ModelMap model) {
         clientService.generateRandomClientsWithOrders();
-		model.addAttribute("message", clientService.getClientReport(3).toString());
-		return "";
-	}
+        model.addAttribute("report", clientService.getClientReport(3));
+        return "report";
+    }
 }
