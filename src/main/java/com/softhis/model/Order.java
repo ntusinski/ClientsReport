@@ -1,13 +1,11 @@
 package com.softhis.model;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "ORDER")
+@Table(name = "`ORDER`")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +17,7 @@ public class Order {
     @Column(name = "ORDER_DATE", nullable = false)
     private Date orderDate;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<OrderElement> orderElements;
 
     public Order() {

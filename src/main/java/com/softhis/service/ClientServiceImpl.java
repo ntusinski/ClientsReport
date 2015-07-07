@@ -48,7 +48,7 @@ public class ClientServiceImpl implements ClientService {
                     }
                 }
             });
-            reportLine.setMostExpensiveOrders(reportOrders.subList(0, numberOfExpensiveListed));
+            reportLine.setMostExpensiveOrders(reportOrders.subList(0, Math.min(reportOrders.size(), numberOfExpensiveListed)));
 
             result.add(reportLine);
         }

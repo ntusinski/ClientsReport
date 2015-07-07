@@ -16,7 +16,7 @@ public class Client {
     @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Order> orders;
 
     public Client() {
